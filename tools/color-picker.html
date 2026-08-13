@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var p=localStorage.getItem("pf-theme")||"auto";var d=p==="auto"?(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):p;document.documentElement.setAttribute("data-theme",d);document.documentElement.setAttribute("data-theme-pref",p);}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Color Picker from Image Online | PixelForge AI</title>
+<meta name="description" content="Upload an image and click anywhere on it to get the exact HEX, RGB and HSL color values, all inside your browser.">
+<link rel="canonical" href="https://pixelforge.ai/tools/color-picker.html">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/components.css">
+<link rel="stylesheet" href="/css/workspace.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header" id="site-header"></header>
+<main id="main">
+  <div class="container"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/index.html">Home</a> / <a href="/tools.html">Tools</a> / <span>Color Picker</span></nav></div>
+  <section class="tool-hero container"><h1>Color Picker</h1><p>Upload an image, then click any pixel to read its exact color as HEX, RGB and HSL.</p></section>
+  <div class="container tool-layout">
+    <div class="workspace-card" id="workspace-card" data-state="empty">
+      <div class="state-empty"><div class="dropzone" id="dropzone"><div class="dropzone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></div><p><strong>Click to upload</strong> or drag and drop</p><p class="dropzone-hint">JPG, PNG or WebP &middot; up to 20 MB</p></div></div>
+      <div class="state-preview">
+        <canvas id="picker-canvas" style="max-width:100%;border-radius:var(--radius-md);border:1px solid var(--border);cursor:crosshair;"></canvas>
+        <div id="color-result" hidden style="margin-top:var(--space-5);">
+          <div style="display:flex;gap:var(--space-4);align-items:center;margin-bottom:var(--space-4);">
+            <div id="swatch-preview" style="width:56px;height:56px;border-radius:var(--radius-md);border:1px solid var(--border);"></div>
+            <div style="display:grid;gap:4px;">
+              <span>HEX: <strong id="value-hex"></strong> <button class="btn btn-sm btn-ghost" data-copy="value-hex">Copy</button></span>
+              <span>RGB: <strong id="value-rgb"></strong> <button class="btn btn-sm btn-ghost" data-copy="value-rgb">Copy</button></span>
+              <span>HSL: <strong id="value-hsl"></strong> <button class="btn btn-sm btn-ghost" data-copy="value-hsl">Copy</button></span>
+            </div>
+          </div>
+          <p style="font-size:var(--text-sm);color:var(--text-muted);margin-bottom:var(--space-2);">Recently picked colors</p>
+          <div id="palette-row" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+        </div>
+        <div class="workspace-actions"><button class="btn btn-ghost" id="reset-btn">Upload another image</button></div>
+      </div>
+      <div class="state-processing"></div><div class="state-result"></div>
+      <div class="state-error"><div class="error-box" id="error-message"></div><button class="btn btn-secondary" onclick="document.getElementById('reset-btn').click()">Try again</button></div>
+    </div>
+    <aside>
+      <div class="sidebar-card"><div class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg><span>Your file is processed in your browser. It is never uploaded to a server.</span></div></div>
+      <div class="sidebar-card"><h4>How it works</h4><ul class="info-list"><li>1. Upload an image.</li><li>2. Click anywhere on it.</li><li>3. Copy the HEX, RGB or HSL value.</li></ul></div>
+      <div class="sidebar-card"><h4>Related tools</h4><div class="related-tools"><a href="/tools/image-metadata-viewer.html">Metadata Viewer</a></div></div>
+    </aside>
+  </div>
+  <section class="section container"><h2>Frequently asked questions</h2>
+    <details class="faq-item"><summary>Is the color exact?</summary><p>Yes, it reads the exact pixel value from the rendered image using the Canvas API's pixel data.</p></details>
+  </section>
+</main>
+<footer class="site-footer" id="site-footer"></footer>
+<script src="/js/theme.js" defer></script>
+<script src="/js/components.js" defer></script>
+<script src="/js/tool-workspace.js" defer></script>
+<script src="/js/tools/color-picker.js" defer></script>
+</body>
+</html>

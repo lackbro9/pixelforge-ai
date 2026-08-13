@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var p=localStorage.getItem("pf-theme")||"auto";var d=p==="auto"?(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):p;document.documentElement.setAttribute("data-theme",d);document.documentElement.setAttribute("data-theme-pref",p);}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Resizer - Resize Images to Exact Dimensions | PixelForge AI</title>
+<meta name="description" content="Resize JPG, PNG or WebP images to exact pixel dimensions or common social media presets, directly in your browser.">
+<link rel="canonical" href="https://pixelforge.ai/tools/image-resizer.html">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/components.css">
+<link rel="stylesheet" href="/css/workspace.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header" id="site-header"></header>
+<main id="main">
+  <div class="container"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/index.html">Home</a> / <a href="/tools.html">Tools</a> / <span>Image Resizer</span></nav></div>
+  <section class="tool-hero container">
+    <h1>Image Resizer</h1>
+    <p>Resize any image to an exact pixel size or a ready-made social media preset. Processing happens locally in your browser.</p>
+  </section>
+  <div class="container tool-layout">
+    <div class="workspace-card" id="workspace-card" data-state="empty">
+      <div class="state-empty">
+        <div class="dropzone" id="dropzone">
+          <div class="dropzone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></div>
+          <p><strong>Click to upload</strong> or drag and drop</p>
+          <p class="dropzone-hint">JPG, PNG or WebP &middot; up to 20 MB</p>
+        </div>
+      </div>
+      <div class="state-preview">
+        <div class="file-preview">
+          <img id="preview-thumb" alt="Preview of the selected image">
+          <div class="file-preview-meta"><strong id="preview-name"></strong><span id="preview-meta"></span></div>
+        </div>
+        <div class="settings-panel">
+          <div class="field">
+            <label for="preset-select">Preset</label>
+            <select id="preset-select">
+              <option value="">Custom size</option>
+              <option value="instagram-square">Instagram Square (1080×1080)</option>
+              <option value="instagram-story">Instagram Story (1080×1920)</option>
+              <option value="twitter-post">Twitter/X Post (1200×675)</option>
+              <option value="facebook-cover">Facebook Cover (820×312)</option>
+              <option value="youtube-thumbnail">YouTube Thumbnail (1280×720)</option>
+            </select>
+          </div>
+          <div class="settings-row">
+            <div class="field"><label for="width-input">Width (px)</label><input type="number" id="width-input" min="1"></div>
+            <div class="field"><label for="height-input">Height (px)</label><input type="number" id="height-input" min="1"></div>
+          </div>
+          <div class="field"><label><input type="checkbox" id="lock-ratio" checked style="width:auto;margin-right:8px;">Lock aspect ratio</label></div>
+        </div>
+        <div class="workspace-actions">
+          <button class="btn btn-primary" id="resize-btn">Resize Image</button>
+          <button class="btn btn-ghost" id="reset-btn">Reset</button>
+        </div>
+      </div>
+      <div class="state-processing">
+        <p class="processing-label">Resizing in your browser...</p>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      </div>
+      <div class="state-result">
+        <div class="result-compare"><figure><img id="result-after-img" alt="Resized image"><figcaption>Resized result</figcaption></figure></div>
+        <div class="result-stats">
+          <div class="result-stat"><strong id="stat-before"></strong><span>Original size</span></div>
+          <div class="result-stat"><strong id="stat-after"></strong><span>New dimensions</span></div>
+          <div class="result-stat"><strong id="stat-saved"></strong><span>File size</span></div>
+        </div>
+        <div class="workspace-actions">
+          <button class="btn btn-primary" id="download-btn">Download</button>
+          <button class="btn btn-ghost" onclick="document.getElementById('reset-btn').click()">Resize another</button>
+        </div>
+      </div>
+      <div class="state-error"><div class="error-box" id="error-message"></div><button class="btn btn-secondary" onclick="document.getElementById('reset-btn').click()">Try again</button></div>
+    </div>
+    <aside>
+      <div class="sidebar-card"><div class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg><span>Your file is processed in your browser. It is never uploaded to a server.</span></div></div>
+      <div class="sidebar-card"><h4>How it works</h4><ul class="info-list"><li>1. Upload an image.</li><li>2. Pick a preset or enter a custom width/height.</li><li>3. Click Resize and download.</li></ul></div>
+      <div class="sidebar-card"><h4>Related tools</h4><div class="related-tools"><a href="/tools/image-cropper.html">Image Cropper</a><a href="/tools/image-compressor.html">Image Compressor</a></div></div>
+    </aside>
+  </div>
+  <section class="section container">
+    <h2>Frequently asked questions</h2>
+    <details class="faq-item"><summary>Will resizing distort my image?</summary><p>If "Lock aspect ratio" is enabled, height updates automatically to match width (and vice versa) so proportions stay correct. Disable it only if you intentionally want a different ratio.</p></details>
+    <details class="faq-item"><summary>Can I upscale a small image?</summary><p>Yes, but enlarging a small image beyond its original size can make it look soft or blurry since no new detail is created. For real quality upscaling, an AI upscaler is required, which is planned as a future connected AI tool.</p></details>
+  </section>
+</main>
+<footer class="site-footer" id="site-footer"></footer>
+<script src="/js/theme.js" defer></script>
+<script src="/js/components.js" defer></script>
+<script src="/js/tool-workspace.js" defer></script>
+<script src="/js/tools/image-resizer.js" defer></script>
+</body>
+</html>

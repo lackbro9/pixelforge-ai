@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var p=localStorage.getItem("pf-theme")||"auto";var d=p==="auto"?(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):p;document.documentElement.setAttribute("data-theme",d);document.documentElement.setAttribute("data-theme-pref",p);}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Cropper - Crop Images Online | PixelForge AI</title>
+<meta name="description" content="Crop JPG, PNG or WebP images with a draggable selection box and optional fixed aspect ratios, entirely in your browser.">
+<link rel="canonical" href="https://pixelforge.ai/tools/image-cropper.html">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/components.css">
+<link rel="stylesheet" href="/css/workspace.css">
+<link rel="stylesheet" href="/css/cropper.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header" id="site-header"></header>
+<main id="main">
+  <div class="container"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/index.html">Home</a> / <a href="/tools.html">Tools</a> / <span>Image Cropper</span></nav></div>
+  <section class="tool-hero container">
+    <h1>Image Cropper</h1>
+    <p>Draw a selection directly on your image to crop it. Choose a free-form selection or a fixed aspect ratio.</p>
+  </section>
+  <div class="container tool-layout">
+    <div class="workspace-card" id="workspace-card" data-state="empty">
+      <div class="state-empty">
+        <div class="dropzone" id="dropzone">
+          <div class="dropzone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></div>
+          <p><strong>Click to upload</strong> or drag and drop</p>
+          <p class="dropzone-hint">JPG, PNG or WebP &middot; up to 20 MB</p>
+        </div>
+      </div>
+      <div class="state-preview">
+        <p id="preview-name" style="font-size:var(--text-sm);color:var(--text-muted);margin-bottom:var(--space-3);"></p>
+        <div class="field"><label for="aspect-select">Aspect ratio</label>
+          <select id="aspect-select"><option value="free">Free</option><option value="1:1">Square (1:1)</option><option value="4:3">4:3</option><option value="16:9">16:9</option></select>
+        </div>
+        <div class="crop-stage" id="crop-stage"><img id="crop-image" alt="Image to crop"><div class="crop-box" id="crop-box"></div></div>
+        <div class="workspace-actions">
+          <button class="btn btn-primary" id="apply-crop-btn" disabled>Apply Crop</button>
+          <button class="btn btn-ghost" id="reset-btn">Reset</button>
+        </div>
+      </div>
+      <div class="state-processing"><p class="processing-label">Cropping in your browser...</p><div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div></div>
+      <div class="state-result">
+        <div class="result-compare"><figure><img id="result-after-img" alt="Cropped image"><figcaption>Cropped result</figcaption></figure></div>
+        <div class="result-stats"><div class="result-stat"><strong id="stat-after"></strong><span>Dimensions</span></div><div class="result-stat"><strong id="stat-saved"></strong><span>File size</span></div></div>
+        <div class="workspace-actions"><button class="btn btn-primary" id="download-btn">Download</button><button class="btn btn-ghost" onclick="document.getElementById('reset-btn').click()">Crop another</button></div>
+      </div>
+      <div class="state-error"><div class="error-box" id="error-message"></div><button class="btn btn-secondary" onclick="document.getElementById('reset-btn').click()">Try again</button></div>
+    </div>
+    <aside>
+      <div class="sidebar-card"><div class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg><span>Your file is processed in your browser. It is never uploaded to a server.</span></div></div>
+      <div class="sidebar-card"><h4>How it works</h4><ul class="info-list"><li>1. Upload an image.</li><li>2. Drag on the image to draw a crop area.</li><li>3. Click Apply Crop and download.</li></ul></div>
+      <div class="sidebar-card"><h4>Related tools</h4><div class="related-tools"><a href="/tools/image-resizer.html">Image Resizer</a><a href="/tools/image-compressor.html">Image Compressor</a></div></div>
+    </aside>
+  </div>
+  <section class="section container">
+    <h2>Frequently asked questions</h2>
+    <details class="faq-item"><summary>Can I redraw my selection?</summary><p>Yes, simply click and drag again anywhere on the image to replace the current selection.</p></details>
+    <details class="faq-item"><summary>Is the crop pixel-accurate?</summary><p>Yes. The tool maps your on-screen selection back to the image's real pixel dimensions before cropping, so the result matches what you selected.</p></details>
+  </section>
+</main>
+<footer class="site-footer" id="site-footer"></footer>
+<script src="/js/theme.js" defer></script>
+<script src="/js/components.js" defer></script>
+<script src="/js/tool-workspace.js" defer></script>
+<script src="/js/tools/image-cropper.js" defer></script>
+</body>
+</html>

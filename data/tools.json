@@ -1,0 +1,172 @@
+[
+  {
+    "slug": "image-compressor",
+    "name": "Image Compressor",
+    "desc": "Shrink JPG, PNG or WebP file size in your browser with a live before/after comparison.",
+    "category": "image",
+    "url": "/tools/image-compressor.html",
+    "icon": "compress",
+    "status": "available",
+    "popular": true
+  },
+  {
+    "slug": "image-resizer",
+    "name": "Image Resizer",
+    "desc": "Resize images to exact pixel dimensions or common social media presets.",
+    "category": "image",
+    "url": "/tools/image-resizer.html",
+    "icon": "resize",
+    "status": "available",
+    "popular": true
+  },
+  {
+    "slug": "image-cropper",
+    "name": "Image Cropper",
+    "desc": "Crop images with a draggable selection box and optional fixed aspect ratios.",
+    "category": "image",
+    "url": "/tools/image-cropper.html",
+    "icon": "crop",
+    "status": "available",
+    "popular": false
+  },
+  {
+    "slug": "jpg-to-png",
+    "name": "JPG to PNG",
+    "desc": "Convert JPG images to PNG format instantly, entirely on your device.",
+    "category": "conversion",
+    "url": "/tools/jpg-to-png.html",
+    "icon": "convert",
+    "status": "available",
+    "popular": false
+  },
+  {
+    "slug": "png-to-jpg",
+    "name": "PNG to JPG",
+    "desc": "Convert PNG images to JPG with adjustable quality and background fill.",
+    "category": "conversion",
+    "url": "/tools/png-to-jpg.html",
+    "icon": "convert",
+    "status": "available",
+    "popular": false
+  },
+  {
+    "slug": "webp-converter",
+    "name": "WebP Converter",
+    "desc": "Convert images to and from the modern WebP format for smaller, faster sites.",
+    "category": "conversion",
+    "url": "/tools/webp-converter.html",
+    "icon": "convert",
+    "status": "available",
+    "popular": false
+  },
+  {
+    "slug": "color-picker",
+    "name": "Color Picker",
+    "desc": "Pick exact colors from any uploaded image and copy HEX, RGB or HSL values.",
+    "category": "utility",
+    "url": "/tools/color-picker.html",
+    "icon": "palette",
+    "status": "available",
+    "popular": false
+  },
+  {
+    "slug": "image-metadata-viewer",
+    "name": "Image Metadata Viewer",
+    "desc": "Inspect dimensions, file size, type and EXIF data embedded in your images.",
+    "category": "utility",
+    "url": "/tools/image-metadata-viewer.html",
+    "icon": "info",
+    "status": "available",
+    "popular": false
+  },
+  {
+    "slug": "image-to-text",
+    "name": "Image to Text (OCR)",
+    "desc": "Extract readable text from images and photos using in-browser OCR.",
+    "category": "utility",
+    "url": "/tools/image-to-text.html",
+    "icon": "text",
+    "status": "available",
+    "popular": true
+  },
+  {
+    "slug": "image-generator",
+    "name": "AI Image Generator",
+    "desc": "Generate original images from a text prompt using a connected AI model.",
+    "category": "ai",
+    "url": "/ai-tools/image-generator.html",
+    "icon": "sparkles",
+    "status": "soon",
+    "popular": true
+  },
+  {
+    "slug": "background-remover",
+    "name": "AI Background Remover",
+    "desc": "Automatically remove image backgrounds using an AI segmentation model.",
+    "category": "ai",
+    "url": "/ai-tools/background-remover.html",
+    "icon": "sparkles",
+    "status": "soon",
+    "popular": true
+  },
+  {
+    "slug": "image-upscaler",
+    "name": "AI Image Upscaler",
+    "desc": "Increase image resolution while preserving detail using AI upscaling.",
+    "category": "ai",
+    "url": "/ai-tools/image-upscaler.html",
+    "icon": "sparkles",
+    "status": "soon",
+    "popular": false
+  },
+  {
+    "slug": "image-enhancer",
+    "name": "AI Image Enhancer",
+    "desc": "Sharpen, denoise and improve photo quality automatically with AI.",
+    "category": "ai",
+    "url": "/ai-tools/image-enhancer.html",
+    "icon": "sparkles",
+    "status": "soon",
+    "popular": false
+  },
+  {
+    "slug": "headshot-generator",
+    "name": "AI Headshot Generator",
+    "desc": "Turn a casual photo into a polished, professional headshot with AI.",
+    "category": "ai",
+    "url": "/ai-tools/headshot-generator.html",
+    "icon": "sparkles",
+    "status": "soon",
+    "popular": false
+  },
+  {
+    "slug": "avatar-generator",
+    "name": "AI Avatar Generator",
+    "desc": "Create stylized AI avatars for gaming profiles, chat apps and social media.",
+    "category": "ai",
+    "url": "/ai-tools/avatar-generator.html",
+    "icon": "sparkles",
+    "status": "soon",
+    "popular": false
+  },
+  {
+    "slug": "profile-picture-maker",
+    "name": "AI Profile Picture Maker",
+    "desc": "Generate polished, ready-to-use profile pictures for social platforms with AI.",
+    "category": "ai",
+    "url": "/ai-tools/profile-picture-maker.html",
+    "icon": "sparkles",
+    "status": "soon",
+    "popular": false
+  },
+  {
+    "slug": "product-image-generator",
+    "name": "AI Product Image Generator",
+    "desc": "Create clean, studio-style product photos for e-commerce using AI.",
+    "category": "ai",
+    "url": "/ai-tools/product-image-generator.html",
+    "icon": "sparkles",
+    "status": "soon",
+    "popular": false
+  }
+]

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var p=localStorage.getItem("pf-theme")||"auto";var d=p==="auto"?(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):p;document.documentElement.setAttribute("data-theme",d);document.documentElement.setAttribute("data-theme-pref",p);}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PNG to JPG Converter Online | PixelForge AI</title>
+<meta name="description" content="Convert PNG images to JPG format in your browser with a custom background fill color for transparent areas.">
+<link rel="canonical" href="https://pixelforge.ai/tools/png-to-jpg.html">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/components.css">
+<link rel="stylesheet" href="/css/workspace.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header" id="site-header"></header>
+<main id="main">
+  <div class="container"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/index.html">Home</a> / <a href="/tools.html">Tools</a> / <span>PNG to JPG</span></nav></div>
+  <section class="tool-hero container"><h1>PNG to JPG</h1><p>Convert a PNG image to JPG format. Since JPG does not support transparency, choose a background color to fill any transparent areas.</p></section>
+  <div class="container tool-layout">
+    <div class="workspace-card" id="workspace-card" data-state="empty" data-accept="image/png" data-fixed-target="image/jpeg">
+      <div class="state-empty"><div class="dropzone" id="dropzone"><div class="dropzone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></div><p><strong>Click to upload</strong> or drag and drop a PNG</p><p class="dropzone-hint">PNG only &middot; up to 20 MB</p></div></div>
+      <div class="state-preview">
+        <div class="file-preview"><img id="preview-thumb" alt="Preview of the selected image"><div class="file-preview-meta"><strong id="preview-name"></strong><span id="preview-meta"></span></div></div>
+        <div class="field" style="max-width:220px;"><label for="bg-color">Background fill color</label><input type="color" id="bg-color" value="#ffffff"></div>
+        <div class="workspace-actions"><button class="btn btn-primary" id="convert-btn">Convert to JPG</button><button class="btn btn-ghost" id="reset-btn">Reset</button></div>
+      </div>
+      <div class="state-processing"><p class="processing-label">Converting in your browser...</p><div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div></div>
+      <div class="state-result">
+        <div class="result-compare"><figure><img id="result-after-img" alt="Converted JPG image"><figcaption>JPG result</figcaption></figure></div>
+        <div class="result-stats"><div class="result-stat"><strong id="stat-before"></strong><span>Original type</span></div><div class="result-stat"><strong id="stat-after"></strong><span>New type</span></div><div class="result-stat"><strong id="stat-saved"></strong><span>File size</span></div></div>
+        <div class="workspace-actions"><button class="btn btn-primary" id="download-btn">Download JPG</button><button class="btn btn-ghost" onclick="document.getElementById('reset-btn').click()">Convert another</button></div>
+      </div>
+      <div class="state-error"><div class="error-box" id="error-message"></div><button class="btn btn-secondary" onclick="document.getElementById('reset-btn').click()">Try again</button></div>
+    </div>
+    <aside>
+      <div class="sidebar-card"><div class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg><span>Your file is processed in your browser. It is never uploaded to a server.</span></div></div>
+      <div class="sidebar-card"><h4>Related tools</h4><div class="related-tools"><a href="/tools/jpg-to-png.html">JPG to PNG</a><a href="/tools/image-compressor.html">Image Compressor</a></div></div>
+    </aside>
+  </div>
+  <section class="section container"><h2>Frequently asked questions</h2>
+    <details class="faq-item"><summary>What happens to transparent areas?</summary><p>They are filled with the background color you choose before the image is saved as JPG, since JPG has no transparency channel.</p></details>
+  </section>
+</main>
+<footer class="site-footer" id="site-footer"></footer>
+<script src="/js/theme.js" defer></script>
+<script src="/js/components.js" defer></script>
+<script src="/js/tool-workspace.js" defer></script>
+<script src="/js/tools/convert.js" defer></script>
+</body>
+</html>
