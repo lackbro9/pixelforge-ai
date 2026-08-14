@@ -77,9 +77,11 @@
 @keyframes skeleton-shine{0%{background-position:100% 0;}100%{background-position:0 0;}}
 .breadcrumbs{font-size:var(--text-sm);color:var(--text-muted);margin-bottom:var(--space-6);}
 .breadcrumbs a{color:var(--text-muted);} .breadcrumbs a:hover{color:var(--accent);}
-.hero-kicker{font-size:var(--text-sm);font-weight:600;color:var(--text-secondary);margin-bottom:var(--space-3);}
+.hero-kicker-track{overflow:hidden;width:100%;max-width:640px;margin:0 auto var(--space-4);}
+.hero-kicker{display:inline-block;white-space:nowrap;padding-left:100%;font-size:var(--text-xl);font-weight:800;background:var(--accent-gradient);-webkit-background-clip:text;background-clip:text;color:transparent;animation:hero-kicker-scroll 12s linear infinite;margin-top:-6px;}
+@keyframes hero-kicker-scroll{0%{transform:translateX(0);}100%{transform:translateX(-100%);}}
 .hero-demo-row{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:var(--space-5);padding:0 var(--space-8);flex-wrap:wrap;z-index:1;}
-.hero-demo-card{background:rgba(255,255,255,.95);border-radius:var(--radius-lg);padding:var(--space-5) var(--space-6);display:flex;flex-direction:column;align-items:center;gap:var(--space-2);box-shadow:0 10px 30px rgba(0,0,0,.18);min-width:130px;}
-.hero-demo-card svg{width:32px;height:32px;color:var(--accent);}
-.hero-demo-card span{font-size:var(--text-sm);font-weight:700;color:#1a1a2e;}
+.hero-demo-card{background:rgba(18,12,30,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.25);border-radius:var(--radius-lg);padding:var(--space-5) var(--space-6);display:flex;flex-direction:column;align-items:center;gap:var(--space-2);box-shadow:0 10px 30px rgba(0,0,0,.3);min-width:130px;}
+.hero-demo-card svg{width:32px;height:32px;color:#ffd166;}
+.hero-demo-card span{font-size:var(--text-sm);font-weight:700;color:#ffffff;}
 @media (max-width:700px){.hero-demo-row{gap:var(--space-3);} .hero-demo-card{padding:var(--space-3) var(--space-4);min-width:96px;} .hero-demo-card span{font-size:var(--text-xs);}}

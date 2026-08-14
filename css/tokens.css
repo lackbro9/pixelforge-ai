@@ -1,6 +1,6 @@
 /* PixelForge AI - Design Tokens */
 :root {
-  --bg: #ffffff; --bg-secondary: #f6f4f9; --surface: #ffffff; --surface-elevated: #ffffff; --surface-hover: #f1edf7;
+  --bg: #f8f3fb; --bg-secondary: #f6f4f9; --surface: #ffffff; --surface-elevated: #ffffff; --surface-hover: #f1edf7;
   --border: #e6e1ee; --border-strong: #d4cce2;
   --text-primary: #15111d; --text-secondary: #4c4458; --text-muted: #837b90; --text-on-accent: #ffffff;
   --accent: #7c3aed; --accent-hover: #6d28d9; --accent-secondary: #d6409f; --accent-soft: #f3ecfd;
@@ -18,7 +18,7 @@
   --z-header:100; --z-overlay:200; --z-modal:300; --z-toast:400;
 }
 [data-theme="dark"] {
-  --bg:#0a090e; --bg-secondary:#100e16; --surface:#161320; --surface-elevated:#1b1726; --surface-hover:#221c30;
+  --bg:#120c1a; --bg-secondary:#100e16; --surface:#161320; --surface-elevated:#1b1726; --surface-hover:#221c30;
   --border:#2b2438; --border-strong:#3c3350;
   --text-primary:#f5f3f9; --text-secondary:#c4bdd0; --text-muted:#8c8398; --text-on-accent:#ffffff;
   --accent:#a480fa; --accent-hover:#b699fb; --accent-secondary:#ec6fc1; --accent-soft:#241d38;
