@@ -78,4 +78,13 @@ function prefillSearchFromQuery() {
   document.querySelectorAll('.header-search input[type="search"]').forEach(function (input) { input.value = q; });
 }
 document.addEventListener("DOMContentLoaded", function () { injectPartials(); wireMobileNav(); prefillSearchFromQuery(); });
+function registerServiceWorker() {
+  if (!("serviceWorker" in navigator)) return;
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register(BASE + "sw.js", { scope: BASE }).catch(function () {
+      /* Offline support is a progressive enhancement; ignore registration failures. */
+    });
+  });
+}
+registerServiceWorker();
 })();
