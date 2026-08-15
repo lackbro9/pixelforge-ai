@@ -1,38 +1,29 @@
 /* PixelForge AI - Service Worker
-   Caches the core app shell so the site loads reliably offline / on flaky connections.
-   Safe by design: only same-origin GET requests are cached, and any fetch/cache
-   failure just falls through to a normal network request.
+   Deliberately minimal: this app is under active development, so the
+   service worker must never be able to trap a device on old code.
 
-   Strategy: network-first for navigations/scripts/styles, so a fresh deploy is
-   picked up immediately whenever the device has connectivity. The cache is only
-   used as an offline fallback, never as the primary source, so this app is never
-   stuck serving stale JS/CSS after a fix ships. */
+   It only caches a small set of static, rarely-changing assets (icons,
+   manifest) for offline use. HTML, CSS and JS are NEVER intercepted or
+   cached here - those always go straight to the network, so a fresh
+   deploy is visible on the very next load with zero chance of a stale
+   cache masking it. */
 "use strict";
 
-var CACHE_NAME = "pixelforge-ai-v3";
-var CORE_ASSETS = [
-  "./",
-  "./index.html",
+var CACHE_NAME = "pixelforge-ai-v4";
+var STATIC_ASSETS = [
   "./manifest.json",
-  "./css/tokens.css",
-  "./css/base.css",
-  "./css/components.css",
-  "./js/theme.js",
-  "./js/components.js",
-  "./js/main.js",
-  "./js/tool-grid.js",
-  "./data/tools.json",
   "./icons/icon-192.png",
   "./icons/icon-512.png"
 ];
 
+// Only these extensions are ever allowed to be served from cache.
+var CACHEABLE_RE = /\.(?:png|jpg|jpeg|gif|webp|svg|ico|woff2?)$/i;
+
 self.addEventListener("install", function (event) {
   event.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
-      // Bypass the HTTP cache when seeding the app shell so a recently-fetched
-      // (and possibly stale) response can never be copied into the new cache.
       return Promise.all(
-        CORE_ASSETS.map(function (url) {
+        STATIC_ASSETS.map(function (url) {
           return fetch(url, { cache: "reload" })
             .then(function (response) {
               if (response && response.ok) return cache.put(url, response);
@@ -63,8 +54,14 @@ self.addEventListener("activate", function (event) {
 self.addEventListener("fetch", function (event) {
   var request = event.request;
 
-  // Only handle same-origin GET requests; let everything else pass straight through.
-  if (request.method !== "GET" || new URL(request.url).origin !== self.location.origin) {
+  // Only ever consider same-origin GET requests; everything else (including
+  // all navigations, HTML, CSS and JS) passes straight through untouched.
+  if (
+    request.method !== "GET" ||
+    request.mode === "navigate" ||
+    new URL(request.url).origin !== self.location.origin ||
+    !CACHEABLE_RE.test(new URL(request.url).pathname)
+  ) {
     return;
   }
 
@@ -80,7 +77,6 @@ self.addEventListener("fetch", function (event) {
         return response;
       })
       .catch(function () {
-        // Offline (or network error): fall back to whatever we have cached.
         return caches.match(request);
       })
   );

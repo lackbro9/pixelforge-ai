@@ -93,7 +93,19 @@ document.addEventListener("DOMContentLoaded", function () { injectPartials(); wi
 function registerServiceWorker() {
   if (!("serviceWorker" in navigator)) return;
   window.addEventListener("load", function () {
-    navigator.serviceWorker.register(BASE + "sw.js", { scope: BASE }).catch(function () {
+    navigator.serviceWorker.register(BASE + "sw.js", { scope: BASE }).then(function (reg) {
+      // Self-healing: proactively check for a newer service worker on every
+      // load (instead of waiting for the browser's own update schedule), and
+      // if a new one takes control, reload once so this device can never get
+      // permanently stuck on old cached app code.
+      if (reg && reg.update) reg.update().catch(function () {});
+      var reloadedForUpdate = false;
+      navigator.serviceWorker.addEventListener("controllerchange", function () {
+        if (reloadedForUpdate) return;
+        reloadedForUpdate = true;
+        window.location.reload();
+      });
+    }).catch(function () {
       /* Offline support is a progressive enhancement; ignore registration failures. */
     });
   });
