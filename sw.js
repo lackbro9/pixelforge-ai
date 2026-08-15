@@ -1,10 +1,15 @@
 /* PixelForge AI - Service Worker
    Caches the core app shell so the site loads reliably offline / on flaky connections.
    Safe by design: only same-origin GET requests are cached, and any fetch/cache
-   failure just falls through to a normal network request. */
+   failure just falls through to a normal network request.
+
+   Strategy: network-first for navigations/scripts/styles, so a fresh deploy is
+   picked up immediately whenever the device has connectivity. The cache is only
+   used as an offline fallback, never as the primary source, so this app is never
+   stuck serving stale JS/CSS after a fix ships. */
 "use strict";
 
-var CACHE_NAME = "pixelforge-ai-v2";
+var CACHE_NAME = "pixelforge-ai-v3";
 var CORE_ASSETS = [
   "./",
   "./index.html",
@@ -24,9 +29,19 @@ var CORE_ASSETS = [
 self.addEventListener("install", function (event) {
   event.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
-      return cache.addAll(CORE_ASSETS).catch(function () {
-        /* Ignore individual asset failures so install never hard-fails */
-      });
+      // Bypass the HTTP cache when seeding the app shell so a recently-fetched
+      // (and possibly stale) response can never be copied into the new cache.
+      return Promise.all(
+        CORE_ASSETS.map(function (url) {
+          return fetch(url, { cache: "reload" })
+            .then(function (response) {
+              if (response && response.ok) return cache.put(url, response);
+            })
+            .catch(function () {
+              /* Ignore individual asset failures so install never hard-fails */
+            });
+        })
+      );
     })
   );
   self.skipWaiting();
@@ -54,22 +69,19 @@ self.addEventListener("fetch", function (event) {
   }
 
   event.respondWith(
-    caches.match(request).then(function (cached) {
-      var networkFetch = fetch(request)
-        .then(function (response) {
-          if (response && response.status === 200) {
-            var responseClone = response.clone();
-            caches.open(CACHE_NAME).then(function (cache) {
-              cache.put(request, responseClone);
-            });
-          }
-          return response;
-        })
-        .catch(function () {
-          return cached;
-        });
-
-      return cached || networkFetch;
-    })
+    fetch(request)
+      .then(function (response) {
+        if (response && response.status === 200) {
+          var responseClone = response.clone();
+          caches.open(CACHE_NAME).then(function (cache) {
+            cache.put(request, responseClone);
+          });
+        }
+        return response;
+      })
+      .catch(function () {
+        // Offline (or network error): fall back to whatever we have cached.
+        return caches.match(request);
+      })
   );
 });
