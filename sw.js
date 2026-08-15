@@ -4,7 +4,7 @@
    failure just falls through to a normal network request. */
 "use strict";
 
-var CACHE_NAME = "pixelforge-ai-v1";
+var CACHE_NAME = "pixelforge-ai-v2";
 var CORE_ASSETS = [
   "./",
   "./index.html",

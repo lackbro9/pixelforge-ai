@@ -63,10 +63,22 @@ function wireMobileNav() {
   var toggle = document.getElementById("pf-nav-toggle");
   var nav = document.getElementById("pf-mobile-nav");
   if (!toggle || !nav) return;
-  toggle.addEventListener("click", function () {
+  // Some in-app / wrapped WebViews (Android APK wrappers, some Trusted Web
+  // Activity shells) fire two events for a single physical tap ("ghost
+  // clicks"). Two toggles cancel each other out, so the button looks
+  // completely unresponsive. Guard with a short lockout so only the first
+  // event in a burst actually toggles the menu.
+  var lastToggleAt = 0;
+  function toggleMenu(event) {
+    var now = Date.now();
+    if (now - lastToggleAt < 80) return;
+    lastToggleAt = now;
+    if (event && event.cancelable) event.preventDefault();
     var open = nav.classList.toggle("open");
     toggle.setAttribute("aria-expanded", String(open));
-  });
+  }
+  toggle.addEventListener("click", toggleMenu);
+  toggle.addEventListener("touchend", toggleMenu, { passive: false });
   nav.querySelectorAll("a").forEach(function (a) {
     a.addEventListener("click", function () { nav.classList.remove("open"); toggle.setAttribute("aria-expanded", "false"); });
   });
