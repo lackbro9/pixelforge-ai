@@ -20,12 +20,38 @@ window.PFWorkspace = (function () {
     setTimeout(function () { el.remove(); }, 4200);
   }
   function setState(root, state) { root.setAttribute("data-state", state); }
-  function downloadBlob(blob, filename) {
+  function anchorDownload(blob, filename) {
     var url = URL.createObjectURL(blob);
     var a = document.createElement("a");
     a.href = url; a.download = filename;
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+  }
+  function downloadBlob(blob, filename) {
+    // For image results, prefer the native share sheet so the user can save
+    // straight to their Photo Gallery (a plain <a download> link always lands
+    // in the generic Downloads folder, never the Gallery - browsers/WebViews
+    // give websites no direct Gallery-write API). Text/other output types,
+    // and any browser without file-sharing support, keep the classic download.
+    var isImage = !!(blob && blob.type && blob.type.indexOf("image/") === 0);
+    if (isImage && window.isSecureContext && navigator.share && navigator.canShare) {
+      try {
+        var file = new File([blob], filename, { type: blob.type });
+        if (navigator.canShare({ files: [file] })) {
+          toast('Choose "Save image" / "Save to Photos" in the share menu to add it to your Gallery.');
+          navigator.share({ files: [file] }).catch(function (err) {
+            // AbortError just means the user closed the share sheet without
+            // picking anything - that is a normal cancel, not a failure.
+            if (err && err.name === "AbortError") return;
+            anchorDownload(blob, filename);
+          });
+          return;
+        }
+      } catch (e) {
+        /* Unsupported combination in this browser; fall through below. */
+      }
+    }
+    anchorDownload(blob, filename);
   }
   function loadImage(file) {
     return new Promise(function (resolve, reject) {
