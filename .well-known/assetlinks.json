@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.pixelforge.ai",
+        "sha256_cert_fingerprints": ["79:D2:6B:92:6F:43:3D:D1:4E:08:72:C3:35:90:B6:83:8A:8B:BF:43:C7:C1:00:E8:F2:98:5A:27:27:AF:9B:4E"]
+      }
+    }]

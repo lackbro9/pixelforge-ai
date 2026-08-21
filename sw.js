@@ -1,35 +1,40 @@
 /* PixelForge AI - Service Worker
-   Deliberately minimal: this app is under active development, so the
-   service worker must never be able to trap a device on old code.
-
-   It only caches a small set of static, rarely-changing assets (icons,
-   manifest) for offline use. HTML, CSS and JS are NEVER intercepted or
-   cached here - those always go straight to the network, so a fresh
-   deploy is visible on the very next load with zero chance of a stale
-   cache masking it. */
+   Network-first for everything: every request always tries the live network
+   first, so a fresh deploy is visible on the very next load with zero chance
+   of a stale cache masking it. The cache is only ever used as a fallback -
+   when the device is genuinely offline or the network request fails - which
+   is what gives this app real offline support without risking the "stuck on
+   old code" trap a cache-first strategy can cause. */
 "use strict";
 
-var CACHE_NAME = "pixelforge-ai-v4";
-var STATIC_ASSETS = [
+var CACHE_NAME = "pixelforge-ai-v5";
+var CORE_ASSETS = [
+  "./",
+  "./index.html",
   "./manifest.json",
+  "./css/tokens.css",
+  "./css/base.css",
+  "./css/components.css",
+  "./js/theme.js",
+  "./js/components.js",
+  "./js/main.js",
+  "./js/tool-grid.js",
+  "./js/tool-workspace.js",
+  "./data/tools.json",
   "./icons/icon-192.png",
   "./icons/icon-512.png"
 ];
-
-// Only these extensions are ever allowed to be served from cache.
-var CACHEABLE_RE = /\.(?:png|jpg|jpeg|gif|webp|svg|ico|woff2?)$/i;
 
 self.addEventListener("install", function (event) {
   event.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
       return Promise.all(
-        STATIC_ASSETS.map(function (url) {
+        CORE_ASSETS.map(function (url) {
           return fetch(url, { cache: "reload" })
             .then(function (response) {
               if (response && response.ok) return cache.put(url, response);
             })
             .catch(function () {
-              /* Ignore individual asset failures so install never hard-fails */
             });
         })
       );
@@ -54,14 +59,7 @@ self.addEventListener("activate", function (event) {
 self.addEventListener("fetch", function (event) {
   var request = event.request;
 
-  // Only ever consider same-origin GET requests; everything else (including
-  // all navigations, HTML, CSS and JS) passes straight through untouched.
-  if (
-    request.method !== "GET" ||
-    request.mode === "navigate" ||
-    new URL(request.url).origin !== self.location.origin ||
-    !CACHEABLE_RE.test(new URL(request.url).pathname)
-  ) {
+  if (request.method !== "GET" || new URL(request.url).origin !== self.location.origin) {
     return;
   }
 
@@ -77,7 +75,11 @@ self.addEventListener("fetch", function (event) {
         return response;
       })
       .catch(function () {
-        return caches.match(request);
+        return caches.match(request).then(function (cached) {
+          if (cached) return cached;
+          if (request.mode === "navigate") return caches.match("./index.html");
+          return undefined;
+        });
       })
   );
 });
